@@ -1,0 +1,90 @@
+<style>
+  .todo_input_list {
+    width: 50%;
+    min-width: 380px;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  .btn {
+    white-space: nowrap;
+    background: rgb(24, 144, 255);
+    border-radius: 2px;
+    padding: 0 8px;
+    color: #fff;
+  }
+  .btn:hover {
+    cursor: pointer;
+    background: rgb(24, 144, 255, 0.9);
+  }
+  .btn.add {
+    height: 48px;
+    line-height: 48px;
+    font-size: 18px;
+    padding: 0 40px;
+  }
+  .btn.del {
+    background: rgb(247, 49, 49);
+    height: 24px;
+    line-height: 24px;
+    font-size: 14px;
+    padding: 0 20px;
+    margin-left: 8px;
+  }
+  .btn.del:hover {
+    background: rgb(247, 49, 49, 0.9);
+  }
+  .input_add {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  input {
+    width: 100%;
+    margin-right: 8px;
+    height: 48px;
+    line-height: 48px;
+    font-size: 20px;
+    color: rgba(0, 0, 0, 0.85);
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(217, 217, 217);
+    padding: 0px 20px;
+  }
+  ul {
+    padding: 10px 0;
+    border-radius: 2px;
+    box-shadow: 1px 1px 2px 1px rgb(0 0 0 / 20%);
+  }
+  li {
+    list-style: none;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  li:not(:first-child) {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+</style>
+<div class="todo_input_list">
+  <div class="input_add">
+    <input
+      type="text"
+      (keyup.enter)="addTodoItem()"
+      [(ngModel)]="todoContent"
+      placeholder="输入待办事项"
+      #todoInput
+    />
+    <span (click)="addTodoItem()" class="btn add">添加</span>
+  </div>
+  <ul *ngIf="todoList.length > 0">
+    <li *ngFor="let todo of todoList; let i = index" @slide>
+      <span [title]="todo">{{ todo | summary }}</span>
+      <span (click)="removeTodoItem(i)" class="btn del">删除</span>
+    </li>
+  </ul>
+</div>
